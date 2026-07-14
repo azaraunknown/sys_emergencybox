@@ -1,0 +1,8 @@
+util.AddNetworkString("EmergencySystem:ExecuteAction")
+util.AddNetworkString("EmergencySystem:ActionExecuted")
+net.Receive("EmergencySystem:ExecuteAction", function(len, ply)
+    local actionType = net.ReadUInt(4)
+    local actionID = net.ReadUInt(4)
+    print("Received action request from " .. ply:Nick() .. " for action type " .. actionType .. " and action ID " .. actionID)
+    EmergencySystem.RequestAction(ply, actionType, actionID)
+end)
