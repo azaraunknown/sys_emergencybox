@@ -13,11 +13,4 @@ function PANEL:Paint(w, h)
     draw.SimpleText(self:GetDescription(), "EmergencySystem.UI.10", s(10), s(30), c.TextSecondary, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 end
 
-function PANEL:DoClick()
-    -- net.Start("EmergencySystem:RequestStateChange")
-    -- net.WriteUInt(self:GetID(), 4)
-    -- net.SendToServer()
-    if IsValid(EmergencySystem.panel) then EmergencySystem.panel:Remove() end
-end
-
 vgui.Register("EmergencySystem.Components.SectionHeader", PANEL, "DPanel")

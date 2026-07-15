@@ -107,3 +107,5 @@ c.recordedAnnouncements[6] = {
 
 c.defaultState = c.alertStates[1]
 c.requiredKeycardLevel = 3
+c.maxProximityDistance = 125
+c.cooldownTime = 10

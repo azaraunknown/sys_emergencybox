@@ -6,7 +6,7 @@ function EmergencySystem.SetState(state, ply)
     local message = c.alertStates[state] and c.alertStates[state].description or "Unknown"
     message = message .. ply
     chat.AddText(c.alertStates[state] and c.alertStates[state].color or Color(255, 255, 255), "[Emergency System] ", c.color, message)
-    EmergencySystem.PlaySound(c.alertStates[state].soundPath)
+    EmergencySystem.PlaySound(c.alertStates[state] and c.alertStates[state].soundPath or "")
 end
 
 function EmergencySystem.PlayAnnouncement(id, ply)

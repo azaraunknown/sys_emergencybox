@@ -9,7 +9,8 @@ function ENT:Initialize()
     local phys = self:GetPhysicsObject()
     if IsValid(phys) then phys:Wake() end
     self.NextUse = 0
-    self.Health = 500
+    self:SetMaxHealth(500)
+    self:SetHealth(500)
     self.Broken = false
 end
 
@@ -23,10 +24,18 @@ function ENT:Use(activator, caller)
 end
 
 function ENT:OnTakeDamage(dmg)
-    if self.Health >= 0 then return end
+    if self.Broken then return end
+    if self:Health() <= 0 then return end
     local damage = dmg:GetDamage()
-    self.Health = math.Clamp(self.Health - damage, 0, 500)
-    if self.Health == 0 then self.Break() end
+    self:SetHealth(math.Clamp(self:Health() - damage, 0, self:GetMaxHealth()))
+    if self:Health() == 0 then self:Break() end
+end
+
+function ENT:StartTouch(ent)
+    if not IsValid(ent) then return end
+    if not ent:IsPlayer() then return end
+    if not self.Broken then return end
+    self:Repair()
 end
 
 function ENT:Break()
@@ -35,5 +44,5 @@ end
 
 function ENT:Repair()
     self.Broken = false
-    self.Health = 500
+    self:SetHealth(self:GetMaxHealth())
 end
